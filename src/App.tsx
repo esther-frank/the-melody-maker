@@ -1,5 +1,5 @@
 import './App.css'
-import aiImage from './assets/ai-generated-image.png'
+import aiImage from './assets/smaller-ai-image.jpg'
 
 const App = () => {
   return (
