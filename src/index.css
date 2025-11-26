@@ -5,4 +5,23 @@
 @theme {
   --font-heading: 'Barriecito', sans-serif;
   --font-body: 'Figtree', sans-serif;
+  --color-primary: #05480D;
+  --color-secondary: #F5EBD5;
+  --color-text: #000001;
+}
+
+@layer base {
+  h1 {
+    font-family: var(--font-heading);
+    color: var(--color-primary);
+    font-weight: 700;
+    font-size: 3rem;
+    margin: 0;
+  }
+  body {
+    font-family: var(--font-body);
+    color: var(--color-text);
+    margin: 0;
+    padding: 0;
+  }
 }
