@@ -1,1 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Barriecito&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap');
 @import 'tailwindcss';
+
+@theme {
+  --font-heading: 'Barriecito', sans-serif;
+  --font-body: 'Figtree', sans-serif;
+}
