@@ -1,11 +1,11 @@
-import aiImage from '../assets/smaller-ai-image.jpg'
+import headshot from '../assets/headshot.jpg'
 
 const About = () => {
   return (
     <>
       <h1 className='mb-4'>The Melody Maker</h1>
       <div className="flex flex-col items-start gap-8 md:flex-row-reverse md:justify-between">
-        <img src={aiImage} className="w-60" />
+        <img src={headshot} className="w-72" />
         <p>
           This is the about page of The Melody Maker application. Lorem ipsum
           dolor sit amet consectetur adipisicing elit. Consequatur aliquam optio
