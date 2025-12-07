@@ -28,11 +28,11 @@ const Contact = () => {
       <div>
         <h1 id="contact-title">Contact</h1>
         <p>
-          TEST Some text here about why to contact and that we'll get back to
-          you soon etc. Lorem ipsum dolor sit amet, consectetur adipisicing
-          elit. Porro ab nobis labore possimus suscipit aliquam eos minus
-          provident. Soluta dignissimos consectetur praesentium voluptatum,
-          quibusdam hic eligendi dolorem distinctio consequatur expedita.
+          Some text here about why to contact and that we'll get back to you
+          soon etc. Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+          Porro ab nobis labore possimus suscipit aliquam eos minus provident.
+          Soluta dignissimos consectetur praesentium voluptatum, quibusdam hic
+          eligendi dolorem distinctio consequatur expedita.
         </p>
       </div>
       <div className={inputGroupStyles}>
