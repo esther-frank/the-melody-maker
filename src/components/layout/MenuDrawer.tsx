@@ -21,10 +21,10 @@ const MenuDrawer = ({ isOpen, onClose }: MenuDrawerProps) => {
           <FontAwesomeIcon icon={faTimes} size="2x" onClick={onClose} />
         </div>
         <div className="flex flex-col gap-6 p-6">
-          <CustomNavLink to="/about" text="About" isLight />
-          <CustomNavLink to="/care-homes" text="Care Homes" isLight />
-          <CustomNavLink to="/contact" text="Contact" isLight />
-          <CustomNavLink to="/portfolio" text="Portfolio" isLight />
+          <CustomNavLink to="/about" text="About" isLight onClose={onClose}/>
+          <CustomNavLink to="/care-homes" text="Care Homes" isLight onClose={onClose} />
+          <CustomNavLink to="/contact" text="Contact" isLight onClose={onClose} />
+          <CustomNavLink to="/portfolio" text="Portfolio" isLight onClose={onClose} />
         </div>
       </div>
     </>

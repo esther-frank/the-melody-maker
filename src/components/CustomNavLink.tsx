@@ -2,10 +2,11 @@ import { NavLink } from 'react-router'
 type CustomNavLinkProps = {
   to: string
   text: string,
+  onClose?: () => void
   isLight?: boolean
 }
 
-const CustomNavLink = ({ to, text, isLight }: CustomNavLinkProps) => {
+const CustomNavLink = ({ to, text, onClose, isLight }: CustomNavLinkProps) => {
   const activeStyles = isLight
     ? 'text-secondary bg-primary px-8 py-4 rounded-lg'
     : 'text-primary bg-secondary px-8 py-4 rounded-lg'
@@ -17,6 +18,7 @@ const CustomNavLink = ({ to, text, isLight }: CustomNavLinkProps) => {
     <NavLink
       className={({ isActive }) => (isActive ? activeStyles : inactiveStyles)}
       to={to}
+      onClick={onClose}
     >
       {text}
     </NavLink>
