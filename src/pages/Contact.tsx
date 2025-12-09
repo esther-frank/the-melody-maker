@@ -12,7 +12,14 @@ const Contact = () => {
   const inputGroupStyles = 'flex flex-col gap-1'
   const inputStyles = 'border-2 rounded-lg p-2 border-primary'
   const form = useFormStore({
-    defaultValues: { name: '', email: '', phone: '', message: '' }
+    defaultValues: {
+      name: '',
+      email: '',
+      phone: '',
+      careHome: '',
+      address: '',
+      message: ''
+    }
   })
 
   form.useSubmit(async (state) => {
@@ -36,7 +43,25 @@ const Contact = () => {
         </p>
       </div>
       <div className={inputGroupStyles}>
-        <FormLabel name={form.names.name}>Name</FormLabel>
+        <FormLabel name={form.names.careHome}>Name of care home</FormLabel>
+        <FormInput
+          name={form.names.careHome}
+          placeholder="Care Home Name"
+          className={inputStyles}
+        />
+        <FormError name={form.names.careHome} className="error" />
+      </div>
+      <div className={inputGroupStyles}>
+        <FormLabel name={form.names.address}>Care home address</FormLabel>
+        <FormInput
+          name={form.names.address}
+          placeholder="Care Home Address"
+          className={inputStyles}
+        />
+        <FormError name={form.names.address} className="error" />
+      </div>
+      <div className={inputGroupStyles}>
+        <FormLabel name={form.names.name}>Contact name</FormLabel>
         <FormInput
           name={form.names.name}
           placeholder="John Doe"
