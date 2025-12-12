@@ -11,14 +11,16 @@ import {
 const Contact = () => {
   const inputGroupStyles = 'flex flex-col gap-1'
   const inputStyles = 'border-2 rounded-lg p-2 border-primary'
+  const landlineStyles = 'hidden'
   const form = useFormStore({
     defaultValues: {
-      name: '',
-      email: '',
-      phone: '',
-      careHome: '',
-      address: '',
-      message: ''
+      name: 'Jane Smith',
+      email: 'jane.smith@example.com',
+      phone: '01234 567890',
+      careHome: 'Sunshine Care Home',
+      address: '123 Oak Street, London, SW1A 1AA',
+      message: 'I would like to enquire about your services.',
+      landline: ''
     }
   })
 
@@ -28,6 +30,7 @@ const Contact = () => {
   form.useSubmit(async (state) => {
     try {
       const data = { ...state.values }
+      console.log(data)
       const response = await fetch(endpoint, {
         method: 'POST',
         mode: 'cors',
@@ -117,6 +120,14 @@ const Contact = () => {
           required
         />
         <FormError name={form.names.message} className="error" />
+      </div>
+      <div className={inputGroupStyles + ' ' + landlineStyles}>
+        <FormLabel name={form.names.landline}>Landline number</FormLabel>
+        <FormInput
+          name={form.names.landline}
+          placeholder="01234 567890"
+          className={inputStyles}
+        />
       </div>
       <div className="flex flex-row gap-4 w-full justify-center">
         <FormReset className="text-primary px-8 py-4 rounded-lg">
