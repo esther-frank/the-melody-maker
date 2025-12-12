@@ -134,9 +134,14 @@ const ContactForm = ({ onSubmitSuccess }: { onSubmitSuccess: () => void }) => {
         <FormReset className="text-primary px-8 py-4 rounded-lg">
           Reset
         </FormReset>
-        <FormSubmit className="text-secondary bg-primary px-8 py-4 rounded-lg">
-          Submit
-        </FormSubmit>
+        <FormSubmit
+          className="text-secondary bg-primary px-8 py-4 rounded-lg"
+          render={(props) => (
+            <button {...props}>
+              {props['aria-disabled'] ? 'Sending...' : 'Send message'}
+            </button>
+          )}
+        />
       </div>
     </Form>
   )
