@@ -14,12 +14,12 @@ const Contact = () => {
   const landlineStyles = 'hidden'
   const form = useFormStore({
     defaultValues: {
-      name: 'Jane Smith',
-      email: 'jane.smith@example.com',
-      phone: '01234 567890',
-      careHome: 'Sunshine Care Home',
-      address: '123 Oak Street, London, SW1A 1AA',
-      message: 'I would like to enquire about your services.',
+      name: '',
+      email: '',
+      phone: '',
+      careHome: '',
+      address: '',
+      message: '',
       landline: ''
     }
   })
