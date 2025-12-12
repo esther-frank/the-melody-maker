@@ -22,8 +22,27 @@ const Contact = () => {
     }
   })
 
+  const endpoint =
+    'https://tjx2ypis75o2amdcohrr5umgg40acpap.lambda-url.eu-west-2.on.aws/'
+
   form.useSubmit(async (state) => {
-    alert(JSON.stringify(state.values))
+    try {
+      const data = { ...state.values }
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        mode: 'cors',
+        cache: 'no-cache',
+        body: JSON.stringify(data)
+      })
+      const status = await response.status
+      if (status !== 200) {
+        throw new Error('Failed to submit form')
+      }
+      alert('Form submitted successfully!')
+      form.reset()
+    } catch (error) {
+      alert('There was an error submitting the form. Please try again.')
+    }
   })
 
   return (
