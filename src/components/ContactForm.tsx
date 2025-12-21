@@ -14,13 +14,12 @@ const ContactForm = ({ onSubmitSuccess }: { onSubmitSuccess: () => void }) => {
   const landlineStyles = 'hidden'
   const form = useFormStore({
     defaultValues: {
-      name: 'Jane Smith',
-      email: 'jane.smith@sunnymeadows.co.uk',
-      phone: '07123 456789',
-      careHome: 'Sunny Meadows Care Home',
-      address: '123 Oak Street, Bristol, BS1 2AB',
-      message:
-        'I would like to enquire about booking a performance for our residents.',
+      name: '',
+      email: '',
+      phone: '',
+      careHome: '',
+      address: '',
+      message: '',
       landline: ''
     }
   })
