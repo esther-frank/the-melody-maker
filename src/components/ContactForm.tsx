@@ -118,6 +118,7 @@ const ContactForm = ({ onSubmitSuccess }: { onSubmitSuccess: () => void }) => {
           placeholder="Your message"
           className={inputStyles}
           required
+          render={<textarea rows={3} />}
         />
         <FormError name={form.names.message} className="error" />
       </div>
