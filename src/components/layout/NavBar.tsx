@@ -11,7 +11,7 @@ const NavBar = () => {
 
   return (
     <>
-      <div className="w-full flex flex-row justify-between items-center p-4 bg-primary text-secondary">
+      <div className="sticky top-0 w-full flex flex-row justify-between items-center p-4 bg-primary text-secondary">
         <Link to="/">
           <img src={logo} className="w-20 h-auto" />
         </Link>
