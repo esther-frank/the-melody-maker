@@ -103,7 +103,7 @@ const ContactForm = ({ onSubmitSuccess }: { onSubmitSuccess: () => void }) => {
         <FormError name={form.names.email} className="error" />
       </div>
       <div className={inputGroupStyles}>
-        <FormLabel name={form.names.phone}>Phone hello</FormLabel>
+        <FormLabel name={form.names.phone}>Phone</FormLabel>
         <FormInput
           name={form.names.phone}
           placeholder="01234 567890"
@@ -111,6 +111,7 @@ const ContactForm = ({ onSubmitSuccess }: { onSubmitSuccess: () => void }) => {
         />
         <FormError name={form.names.phone} className="error" />
       </div>
+      {/* put a dropdown here for genre choice - use nuqs for query params? */}
       <div className={inputGroupStyles}>
         <FormLabel name={form.names.message}>Message</FormLabel>
         <FormInput

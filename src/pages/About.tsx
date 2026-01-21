@@ -1,28 +1,38 @@
 import headshot from '../assets/headshot.jpg'
+import { NavLink } from 'react-router'
 
 const About = () => {
   return (
     <>
-      <h1 className='mb-4'>The Melody Maker</h1>
+      <h1 className="mb-4">The Melody Maker</h1>
       <div className="flex flex-col items-start gap-8 md:flex-row-reverse md:justify-between">
         <img src={headshot} className="w-72 rounded-lg" />
-        <p>
-          This is the about page of The Melody Maker application. Lorem ipsum
-          dolor sit amet consectetur adipisicing elit. Consequatur aliquam optio
-          nesciunt quaerat, ex aut aliquid perferendis neque natus eius iure
-          quam obcaecati labore, quibusdam ratione. Adipisci neque aspernatur
-          ea? Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ad
-          sapiente ducimus est voluptate unde incidunt nisi et consectetur
-          soluta voluptas, maxime atque accusantium ea veritatis quos eius
-          pariatur similique possimus! Lorem ipsum, dolor sit amet consectetur
-          adipisicing elit. Aliquid assumenda repellendus voluptatem optio
-          voluptatum enim beatae veniam perferendis eaque tenetur reprehenderit
-          quo magnam, ipsam dicta veritatis voluptatibus consequatur ipsum
-          nostrum. Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-          Mollitia nobis unde cum nihil illo fugiat perferendis, quis ex
-          blanditiis beatae, ullam consequatur iusto! Doloremque officiis
-          impedit explicabo molestias non quibusdam.
-        </p>
+        <div className="flex flex-col gap-4">
+          <p>
+            I am a professional guitarist with over 35 years experience. During
+            this time I’ve toured extensively in the UK, Europe, North America,
+            Australia and New Zealand, playing gigs and appearing on numerous TV
+            and radio shows and a number of magazine covers. I’ve had records in
+            the UK independent charts, US college radio charts, and National
+            charts in New Zealand and Australia, earning a gold record in New
+            Zealand. I’ve also produced albums for other artists in my home
+            studio and done some guitar teaching.
+          </p>
+          <p>
+            My passion is bringing music into the everyday of people’s lives.
+            Whether that’s performing at weddings or funerals, in care homes,
+            pubs, bars or busking, I play gentle, melodic, engaging arrangements
+            of well-loved tunes by a variety of artists spanning decades of
+            popular music from the 1940s to the present day. I have a
+            comprehensive repertoire including Elvis, The Everly Brothers, The
+            Beatles, Simon & Garfunkel, Abba, Coldplay, tunes from musicals such
+            as the Sound of Music, hymns and Christmas favourites. With over 150
+            songs at my fingertips there’s always something for everyone to
+            enjoy. If there’s a particular song or artist that you’d like me to
+            play, I’m open to requests. Just get in touch via the{' '}
+            <NavLink to="/contact">contact form</NavLink>.
+          </p>
+        </div>
       </div>
     </>
   )
