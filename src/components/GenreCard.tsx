@@ -1,6 +1,11 @@
 import { useState } from 'react'
+import { NavLink } from 'react-router'
 
-const GenreCard = () => {
+type GenreCardProps = {
+  genre: string
+}
+
+const GenreCard = ({ genre }: GenreCardProps) => {
   const [isFlipped, setIsFlipped] = useState(false)
 
   const sharedStyles =
@@ -11,7 +16,7 @@ const GenreCard = () => {
   }
 
   return (
-    <div className="w-1/4 aspect-square" style={{ perspective: '1000px' }}>
+    <div className="w-48 aspect-square" style={{ perspective: '1000px' }}>
       <div
         className="w-full h-full relative cursor-pointer transition-transform duration-700"
         onClick={handleClick}
@@ -24,7 +29,7 @@ const GenreCard = () => {
           className={`${sharedStyles} bg-primary text-secondary`}
           style={{ backfaceVisibility: 'hidden' }}
         >
-          Front
+          <h3 className="text-center text-lg font-semibold">{genre}</h3>
         </div>
 
         <div
@@ -34,7 +39,12 @@ const GenreCard = () => {
             transform: 'rotateY(180deg)'
           }}
         >
-          Back
+          <NavLink
+            to="/contact"
+            className="text-primary hover:underline font-semibold"
+          >
+            Get in touch
+          </NavLink>
         </div>
       </div>
     </div>
