@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { NavLink } from 'react-router'
+import { useNavigate } from 'react-router-dom'
 
 type GenreCardProps = {
   genre: string
@@ -7,12 +7,17 @@ type GenreCardProps = {
 
 const GenreCard = ({ genre }: GenreCardProps) => {
   const [isFlipped, setIsFlipped] = useState(false)
+  const navigate = useNavigate()
 
   const sharedStyles =
     'rounded-lg border-solid border-4 border-primary p-4 w-full h-full flex items-center justify-center absolute inset-0'
 
   const handleClick = () => {
     setIsFlipped((prev) => !prev)
+  }
+
+  const handleContactClick = () => {
+    navigate(`/contact?package=${encodeURIComponent(genre)}`)
   }
 
   return (
@@ -39,12 +44,12 @@ const GenreCard = ({ genre }: GenreCardProps) => {
             transform: 'rotateY(180deg)'
           }}
         >
-          <NavLink
-            to="/contact"
-            className="text-primary hover:underline font-semibold"
+          <button
+            onClick={handleContactClick}
+            className="text-primary hover:underline font-semibold bg-transparent border-none cursor-pointer"
           >
             Get in touch
-          </NavLink>
+          </button>
         </div>
       </div>
     </div>

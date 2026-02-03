@@ -1,3 +1,5 @@
+import { useEffect, useRef } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import {
   useFormStore,
   Form,
@@ -12,6 +14,17 @@ const ContactForm = ({ onSubmitSuccess }: { onSubmitSuccess: () => void }) => {
   const inputGroupStyles = 'flex flex-col gap-1'
   const inputStyles = 'border-2 rounded-lg p-2 border-primary'
   const landlineStyles = 'hidden'
+  const [searchParams, setSearchParams] = useSearchParams()
+  const PACKAGES = [
+    'The Beatles',
+    '80s music',
+    'Rock',
+    'Pop',
+    'Jazz',
+    'Classical'
+  ]
+  const hasInitialized = useRef(false)
+
   const form = useFormStore({
     defaultValues: {
       name: '',
@@ -19,10 +32,24 @@ const ContactForm = ({ onSubmitSuccess }: { onSubmitSuccess: () => void }) => {
       phone: '',
       careHome: '',
       address: '',
+      package: '',
       message: '',
       landline: ''
     }
   })
+
+  // Set package from query param and remove it from URL
+  useEffect(() => {
+    if (!hasInitialized.current) {
+      const packageParam = searchParams.get('package')
+      if (packageParam && PACKAGES.includes(packageParam)) {
+        form.setValue('package', packageParam)
+        // Remove the query param from URL
+        setSearchParams({})
+      }
+      hasInitialized.current = true
+    }
+  }, [searchParams, setSearchParams, form, PACKAGES])
 
   const endpoint =
     'https://tjx2ypis75o2amdcohrr5umgg40acpap.lambda-url.eu-west-2.on.aws/'
@@ -111,9 +138,29 @@ const ContactForm = ({ onSubmitSuccess }: { onSubmitSuccess: () => void }) => {
         />
         <FormError name={form.names.phone} className="error" />
       </div>
-      {/* put a dropdown here for genre choice - use nuqs for query params? */}
       <div className={inputGroupStyles}>
-        <FormLabel name={form.names.message}>Message - If enquiring about making a booking, please include which package and which date(s) you’d prefer.</FormLabel>
+        <FormLabel name={form.names.package}>Music Package</FormLabel>
+        <FormInput
+          name={form.names.package}
+          className={inputStyles}
+          render={
+            <select defaultValue="">
+              <option value="">Select a package...</option>
+              {PACKAGES.map((p) => (
+                <option key={p} value={p}>
+                  {p}
+                </option>
+              ))}
+            </select>
+          }
+        />
+        <FormError name={form.names.package} className="error" />
+      </div>
+      <div className={inputGroupStyles}>
+        <FormLabel name={form.names.message}>
+          Message - If enquiring about making a booking, please include which
+          package and which date(s) you’d prefer.
+        </FormLabel>
         <FormInput
           name={form.names.message}
           placeholder="Your message"
