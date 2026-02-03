@@ -113,7 +113,7 @@ const ContactForm = ({ onSubmitSuccess }: { onSubmitSuccess: () => void }) => {
       </div>
       {/* put a dropdown here for genre choice - use nuqs for query params? */}
       <div className={inputGroupStyles}>
-        <FormLabel name={form.names.message}>Message</FormLabel>
+        <FormLabel name={form.names.message}>Message - If enquiring about making a booking, please include which package and which date(s) you’d prefer.</FormLabel>
         <FormInput
           name={form.names.message}
           placeholder="Your message"
