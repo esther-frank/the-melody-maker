@@ -1,5 +1,3 @@
-import { useEffect, useRef } from 'react'
-import { useSearchParams } from 'react-router-dom'
 import {
   useFormStore,
   Form,
@@ -9,55 +7,68 @@ import {
   FormReset,
   FormSubmit
 } from '@ariakit/react'
+import { useState, type ChangeEvent } from 'react'
 
 const ContactForm = ({ onSubmitSuccess }: { onSubmitSuccess: () => void }) => {
   const inputGroupStyles = 'flex flex-col gap-1'
   const inputStyles = 'border-2 rounded-lg p-2 border-primary'
   const landlineStyles = 'hidden'
-  const [searchParams, setSearchParams] = useSearchParams()
-  const PACKAGES = [
-    'The Beatles',
-    '80s music',
-    'Rock',
-    'Pop',
-    'Jazz',
-    'Classical'
-  ]
-  const hasInitialized = useRef(false)
+  const [emailConfirmError, setEmailConfirmError] = useState('')
+  const [email, setEmail] = useState('')
 
-  const form = useFormStore({
+  const confirmEmailOnChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.currentTarget.value && email && email !== e.currentTarget.value) {
+      setEmailConfirmError('Email addresses do not match')
+    } else {
+      setEmailConfirmError('')
+    }
+  }
+
+  const form = useFormStore<{
+    name: string
+    email: string
+    emailConfirm: string
+    phone: string
+    careHome: string
+    address: string
+    packages: string[]
+    message: string
+    landline: string
+  }>({
     defaultValues: {
       name: '',
       email: '',
+      emailConfirm: '',
       phone: '',
       careHome: '',
       address: '',
-      package: '',
+      packages: [],
       message: '',
       landline: ''
     }
   })
 
-  // Set package from query param and remove it from URL
-  useEffect(() => {
-    if (!hasInitialized.current) {
-      const packageParam = searchParams.get('package')
-      if (packageParam && PACKAGES.includes(packageParam)) {
-        form.setValue('package', packageParam)
-        // Remove the query param from URL
-        setSearchParams({})
-      }
-      hasInitialized.current = true
-    }
-  }, [searchParams, setSearchParams, form, PACKAGES])
-
   const endpoint =
     'https://tjx2ypis75o2amdcohrr5umgg40acpap.lambda-url.eu-west-2.on.aws/'
 
-  form.useSubmit(async (state) => {
+  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    if (emailConfirmError) {
+      e.preventDefault()
+      return
+    }
+  }
+
+  const handleSubmit = async (state: any) => {
+    // Prevent submission if email validation failed
+    if (state.values.email !== state.values.emailConfirm) {
+      setEmailConfirmError('Email addresses do not match')
+      return
+    }
+
     try {
-      const data = { ...state.values }
-      console.log(data)
+      setEmailConfirmError('')
+      const { emailConfirm, ...data } = state.values
+
       const response = await fetch(endpoint, {
         method: 'POST',
         mode: 'cors',
@@ -70,26 +81,23 @@ const ContactForm = ({ onSubmitSuccess }: { onSubmitSuccess: () => void }) => {
       }
       onSubmitSuccess()
       form.reset()
+      setEmail('')
     } catch (error) {
       alert('There was an error submitting the form. Please try again.')
     }
-  })
+  }
+
+  form.useSubmit(handleSubmit)
 
   return (
     <Form
       store={form}
       aria-labelledby="contact-title"
       className="flex flex-col gap-4"
+      onSubmit={handleFormSubmit}
     >
       <div>
-        <h1 id="contact-title">Contact</h1>
-        <p>
-          Some text here about why to contact and that we'll get back to you
-          soon etc. Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-          Porro ab nobis labore possimus suscipit aliquam eos minus provident.
-          Soluta dignissimos consectetur praesentium voluptatum, quibusdam hic
-          eligendi dolorem distinctio consequatur expedita.
-        </p>
+        <h1 id="contact-title">Get in touch</h1>
       </div>
       <div className={inputGroupStyles}>
         <FormLabel name={form.names.careHome}>Name of care home</FormLabel>
@@ -106,6 +114,7 @@ const ContactForm = ({ onSubmitSuccess }: { onSubmitSuccess: () => void }) => {
           name={form.names.address}
           placeholder="Care Home Address"
           className={inputStyles}
+          render={<textarea rows={3} />}
         />
         <FormError name={form.names.address} className="error" />
       </div>
@@ -113,7 +122,7 @@ const ContactForm = ({ onSubmitSuccess }: { onSubmitSuccess: () => void }) => {
         <FormLabel name={form.names.name}>Contact name</FormLabel>
         <FormInput
           name={form.names.name}
-          placeholder="John Doe"
+          placeholder="John Smith"
           className={inputStyles}
           required
         />
@@ -123,11 +132,27 @@ const ContactForm = ({ onSubmitSuccess }: { onSubmitSuccess: () => void }) => {
         <FormLabel name={form.names.email}>Email</FormLabel>
         <FormInput
           name={form.names.email}
-          placeholder="john.doe@example.com"
+          placeholder="john.smith@example.com"
           className={inputStyles}
           required
+          onChange={(e) => setEmail(e.currentTarget.value)}
         />
         <FormError name={form.names.email} className="error" />
+      </div>
+      <div className={inputGroupStyles}>
+        <FormLabel name={form.names.emailConfirm}>Confirm Email</FormLabel>
+        <FormInput
+          name={form.names.emailConfirm}
+          placeholder="john.smith@example.com"
+          className={inputStyles}
+          required
+          onPaste={(e) => e.preventDefault()}
+          onChange={(e) => confirmEmailOnChange(e)}
+        />
+        {emailConfirmError && (
+          <div className="error text-red-900">{emailConfirmError}</div>
+        )}
+        <FormError name={form.names.emailConfirm} className="error" />
       </div>
       <div className={inputGroupStyles}>
         <FormLabel name={form.names.phone}>Phone</FormLabel>
@@ -139,28 +164,7 @@ const ContactForm = ({ onSubmitSuccess }: { onSubmitSuccess: () => void }) => {
         <FormError name={form.names.phone} className="error" />
       </div>
       <div className={inputGroupStyles}>
-        <FormLabel name={form.names.package}>Music Package</FormLabel>
-        <FormInput
-          name={form.names.package}
-          className={inputStyles}
-          render={
-            <select defaultValue="">
-              <option value="">Select a package...</option>
-              {PACKAGES.map((p) => (
-                <option key={p} value={p}>
-                  {p}
-                </option>
-              ))}
-            </select>
-          }
-        />
-        <FormError name={form.names.package} className="error" />
-      </div>
-      <div className={inputGroupStyles}>
-        <FormLabel name={form.names.message}>
-          Message - If enquiring about making a booking, please include which
-          package and which date(s) you’d prefer.
-        </FormLabel>
+        <FormLabel name={form.names.message}>Message</FormLabel>
         <FormInput
           name={form.names.message}
           placeholder="Your message"
