@@ -28,9 +28,8 @@ const About = () => {
             Beatles, Simon & Garfunkel, Abba, Coldplay, tunes from musicals such
             as the Sound of Music, hymns and Christmas favourites. With over 150
             songs at my fingertips there’s always something for everyone to
-            enjoy. If there’s a particular song or artist that you’d like me to
-            play, I’m open to requests. Just get in touch via the{' '}
-            <NavLink to="/contact">contact form</NavLink>.
+            enjoy. Just get in touch via the{' '}
+            <NavLink to="/contact" className='underline'>contact form</NavLink>.
           </p>
         </div>
       </div>
