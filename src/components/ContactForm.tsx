@@ -98,6 +98,10 @@ const ContactForm = ({ onSubmitSuccess }: { onSubmitSuccess: () => void }) => {
     >
       <div>
         <h1 id="contact-title">Get in touch</h1>
+        <p className='pt-2'>
+          To make a booking or if you’d like more information please fill in the
+          form below or give me a call on 07941 809506
+        </p>
       </div>
       <div className={inputGroupStyles}>
         <FormLabel name={form.names.careHome}>Name of care home</FormLabel>
