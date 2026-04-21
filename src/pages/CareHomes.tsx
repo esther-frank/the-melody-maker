@@ -31,7 +31,7 @@ const CareHomes = () => {
         </p>
         <ul>
           {packages.map((item) => (
-            <li className='list-disc list-inside'>{item}</li>
+            <li className="list-disc list-inside">{item}</li>
           ))}
         </ul>
         <p>
