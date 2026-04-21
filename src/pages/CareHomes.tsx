@@ -2,11 +2,11 @@ import { NavLink } from 'react-router'
 
 const CareHomes = () => {
   const packages = [
-    'Christmas',
     'The Beatles',
-    'Number One Hits',
     '1950s/1960s',
-    'Love songs'
+    'Number One Hits',
+    'Love songs',
+    'Christmas'
   ]
 
   return (
