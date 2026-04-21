@@ -178,6 +178,7 @@ const ContactForm = ({ onSubmitSuccess }: { onSubmitSuccess: () => void }) => {
         />
         <FormError name={form.names.message} className="error" />
       </div>
+      // privacy policy checkbox here
       <div className={inputGroupStyles + ' ' + landlineStyles}>
         <FormLabel name={form.names.landline}>Landline number</FormLabel>
         <FormInput
