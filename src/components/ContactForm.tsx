@@ -5,9 +5,12 @@ import {
   FormInput,
   FormError,
   FormReset,
-  FormSubmit
+  FormSubmit,
+  FormCheckbox
 } from '@ariakit/react'
 import { useState, type ChangeEvent } from 'react'
+
+import bookingPolicy from '../../public/booking-policy.pdf'
 
 const ContactForm = ({ onSubmitSuccess }: { onSubmitSuccess: () => void }) => {
   const inputGroupStyles = 'flex flex-col gap-1'
@@ -31,9 +34,9 @@ const ContactForm = ({ onSubmitSuccess }: { onSubmitSuccess: () => void }) => {
     phone: string
     careHome: string
     address: string
-    packages: string[]
     message: string
     landline: string
+    acceptPolicy: boolean
   }>({
     defaultValues: {
       name: '',
@@ -42,9 +45,9 @@ const ContactForm = ({ onSubmitSuccess }: { onSubmitSuccess: () => void }) => {
       phone: '',
       careHome: '',
       address: '',
-      packages: [],
       message: '',
-      landline: ''
+      landline: '',
+      acceptPolicy: false
     }
   })
 
@@ -98,7 +101,7 @@ const ContactForm = ({ onSubmitSuccess }: { onSubmitSuccess: () => void }) => {
     >
       <div>
         <h1 id="contact-title">Get in touch</h1>
-        <p className='pt-2'>
+        <p className="pt-2">
           To make a booking or if you’d like more information please fill in the
           form below or give me a call on 07941 809506
         </p>
@@ -110,7 +113,7 @@ const ContactForm = ({ onSubmitSuccess }: { onSubmitSuccess: () => void }) => {
           placeholder="Care Home Name"
           className={inputStyles}
         />
-        <FormError name={form.names.careHome} className="error" />
+        <FormError name={form.names.careHome} className="error text-red-900" />
       </div>
       <div className={inputGroupStyles}>
         <FormLabel name={form.names.address}>Care home address</FormLabel>
@@ -120,7 +123,7 @@ const ContactForm = ({ onSubmitSuccess }: { onSubmitSuccess: () => void }) => {
           className={inputStyles}
           render={<textarea rows={3} />}
         />
-        <FormError name={form.names.address} className="error" />
+        <FormError name={form.names.address} className="error text-red-900" />
       </div>
       <div className={inputGroupStyles}>
         <FormLabel name={form.names.name}>Contact name</FormLabel>
@@ -130,7 +133,7 @@ const ContactForm = ({ onSubmitSuccess }: { onSubmitSuccess: () => void }) => {
           className={inputStyles}
           required
         />
-        <FormError name={form.names.name} className="error" />
+        <FormError name={form.names.name} className="error text-red-900" />
       </div>
       <div className={inputGroupStyles}>
         <FormLabel name={form.names.email}>Email</FormLabel>
@@ -141,7 +144,7 @@ const ContactForm = ({ onSubmitSuccess }: { onSubmitSuccess: () => void }) => {
           required
           onChange={(e) => setEmail(e.currentTarget.value)}
         />
-        <FormError name={form.names.email} className="error" />
+        <FormError name={form.names.email} className="error text-red-900" />
       </div>
       <div className={inputGroupStyles}>
         <FormLabel name={form.names.emailConfirm}>Confirm Email</FormLabel>
@@ -156,7 +159,10 @@ const ContactForm = ({ onSubmitSuccess }: { onSubmitSuccess: () => void }) => {
         {emailConfirmError && (
           <div className="error text-red-900">{emailConfirmError}</div>
         )}
-        <FormError name={form.names.emailConfirm} className="error" />
+        <FormError
+          name={form.names.emailConfirm}
+          className="error text-red-900"
+        />
       </div>
       <div className={inputGroupStyles}>
         <FormLabel name={form.names.phone}>Phone</FormLabel>
@@ -165,7 +171,7 @@ const ContactForm = ({ onSubmitSuccess }: { onSubmitSuccess: () => void }) => {
           placeholder="01234 567890"
           className={inputStyles}
         />
-        <FormError name={form.names.phone} className="error" />
+        <FormError name={form.names.phone} className="error text-red-900" />
       </div>
       <div className={inputGroupStyles}>
         <FormLabel name={form.names.message}>Message</FormLabel>
@@ -176,10 +182,24 @@ const ContactForm = ({ onSubmitSuccess }: { onSubmitSuccess: () => void }) => {
           required
           render={<textarea rows={3} />}
         />
-        <FormError name={form.names.message} className="error" />
+        <FormError name={form.names.message} className="error text-red-900" />
       </div>
-      // privacy policy checkbox here
-      <div className={inputGroupStyles + ' ' + landlineStyles}>
+      <div className="flex flex-col gap-1">
+        <div className="flex flex-row gap-1">
+          <FormCheckbox name={form.names.acceptPolicy} required={true} />
+          <FormLabel name={form.names.acceptPolicy}>
+            I have read and agree to the{' '}
+            <a href={bookingPolicy} target="_blank" className="underline">
+              privacy policy
+            </a>
+          </FormLabel>
+        </div>
+        <FormError
+          name={form.names.acceptPolicy}
+          className="error text-red-900"
+        />
+      </div>
+      <div className={inputGroupStyles + ' ' + landlineStyles} tabIndex={-1}>
         <FormLabel name={form.names.landline}>Landline number</FormLabel>
         <FormInput
           name={form.names.landline}
