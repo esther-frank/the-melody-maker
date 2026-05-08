@@ -10,7 +10,7 @@ import {
 } from '@ariakit/react'
 import { useState, type ChangeEvent } from 'react'
 
-import bookingPolicy from '../../public/booking-policy.pdf'
+import privacyPolicy from '../../public/privacy-policy.pdf'
 
 const ContactForm = ({ onSubmitSuccess }: { onSubmitSuccess: () => void }) => {
   const inputGroupStyles = 'flex flex-col gap-1'
@@ -189,7 +189,7 @@ const ContactForm = ({ onSubmitSuccess }: { onSubmitSuccess: () => void }) => {
           <FormCheckbox name={form.names.acceptPolicy} required={true} />
           <FormLabel name={form.names.acceptPolicy}>
             I have read and agree to the{' '}
-            <a href={bookingPolicy} target="_blank" className="underline">
+            <a href={privacyPolicy} target="_blank" className="underline">
               privacy policy
             </a>
           </FormLabel>

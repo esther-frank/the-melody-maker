@@ -1,4 +1,5 @@
 import bookingPolicy from '../../../public/booking-policy.pdf'
+import privacyPolicy from '../../../public/privacy-policy.pdf'
 
 const Footer = () => {
   return (
@@ -6,7 +7,7 @@ const Footer = () => {
       <a href={bookingPolicy} target="_blank" className="px-4">
         Booking policy
       </a>
-      <a href={bookingPolicy} target="_blank" className="px-4">
+      <a href={privacyPolicy} target="_blank" className="px-4">
         Privacy policy
       </a>
       <p className="px-4">The Melody Maker 2026</p>
