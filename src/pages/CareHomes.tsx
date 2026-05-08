@@ -11,7 +11,7 @@ const CareHomes = () => {
 
   return (
     <div>
-      <h1 className="mb-4">The Melody Maker - melodies for your memories</h1>
+      <h1 className="mb-4">The Melody Maker</h1>
       <div className="flex flex-col gap-4">
         <p>
           With a comprehensive repertoire of over 150 songs from, for example,
