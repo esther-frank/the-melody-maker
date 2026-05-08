@@ -1,7 +1,7 @@
 const Gallery = () => {
   return (
     <div className="aspect-video w-full">
-      <iframe
+      {/* <iframe
         className="w-full h-full"
         src="https://www.youtube.com/embed/MtN1YnoL46Q?rel=0"
         title="YouTube video player"
@@ -9,7 +9,8 @@ const Gallery = () => {
         referrerPolicy="strict-origin-when-cross-origin"
         allowFullScreen
         loading="lazy"
-      ></iframe>
+      ></iframe> */}
+      <p>Coming soon...</p>
     </div>
   )
 }

@@ -24,7 +24,7 @@ const MenuDrawer = ({ isOpen, onClose }: MenuDrawerProps) => {
           <CustomNavLink to="/about" text="About" isLight onClose={onClose}/>
           <CustomNavLink to="/care-homes" text="Care Homes" isLight onClose={onClose} />
           <CustomNavLink to="/contact" text="Contact" isLight onClose={onClose} />
-          <CustomNavLink to="/gallery" text="Gallery" isLight onClose={onClose} />
+          {/* <CustomNavLink to="/gallery" text="Gallery" isLight onClose={onClose} /> */}
         </div>
       </div>
     </>

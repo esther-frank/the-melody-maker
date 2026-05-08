@@ -19,7 +19,7 @@ const NavBar = () => {
           <CustomNavLink to="/about" text="About" />
           <CustomNavLink to="/care-homes" text="Care Homes" />
           <CustomNavLink to="/contact" text="Contact" />
-          <CustomNavLink to="/gallery" text="Gallery" />
+          {/* <CustomNavLink to="/gallery" text="Gallery" /> */}
         </div>
         <div className="flex flex-row gap-4 md:hidden">
           <button onClick={() => setIsDrawerOpen(true)}>
