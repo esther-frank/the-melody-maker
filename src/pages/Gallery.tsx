@@ -2,17 +2,17 @@ import { useRef, useState } from 'react'
 
 const chapters = [
   { title: 'Waterloo Sunset', timestamp: '0' },
-  { title: 'From Me to You', timestamp: '47' },
-  { title: 'Dream a Little Dream', timestamp: '83' },
-  { title: 'Dream', timestamp: '128' },
-  { title: 'Love me Tender', timestamp: '174' },
-  { title: 'Over the Rainbow', timestamp: '220' },
-  { title: 'Mama Mia', timestamp: '245' },
-  { title: 'Close to You', timestamp: '310' },
-  { title: 'Edelweiss', timestamp: '352' },
-  { title: "Annie's Song", timestamp: '383' },
-  { title: 'Something Stupid', timestamp: '424' },
-  { title: 'Amazing Grace', timestamp: '463' }
+  { title: 'From Me to You', timestamp: '47.7' },
+  { title: 'Dream a Little Dream', timestamp: '84' },
+  { title: 'Dream', timestamp: '128.5' },
+  { title: 'Love me Tender', timestamp: '174.7' },
+  { title: 'Over the Rainbow', timestamp: '220.1' },
+  { title: 'Mamma Mia', timestamp: '246.5' },
+  { title: 'Close to You', timestamp: '311.5' },
+  { title: 'Edelweiss', timestamp: '352.5' },
+  { title: "Annie's Song", timestamp: '383.5' },
+  { title: 'Something Stupid', timestamp: '424.5' },
+  { title: 'Amazing Grace', timestamp: '463.5' }
 ]
 
 const Gallery = () => {
