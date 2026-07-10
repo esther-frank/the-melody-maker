@@ -52,6 +52,7 @@ const Gallery = () => {
       <video
         controls
         className="w-full col-span-3"
+        playsInline={true}
         ref={videoRef}
         onPlay={runGetCurrentChapterIndex}
         onPause={() => {
