@@ -10,7 +10,7 @@ import {
 } from '@ariakit/react'
 import { useState, type ChangeEvent } from 'react'
 
-import privacyPolicy from '../../public/privacy-policy.pdf'
+import privacyPolicy from '/privacy-policy.pdf?url'
 
 const ContactForm = ({ onSubmitSuccess }: { onSubmitSuccess: () => void }) => {
   const inputGroupStyles = 'flex flex-col gap-1'

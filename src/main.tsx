@@ -12,15 +12,15 @@ import CareHomes from './pages/CareHomes.tsx'
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
-      <Layout>
         <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/care-homes" element={<CareHomes />} />
-          <Route path="/contact" element={<Contact />} />
+          <Route element={<Layout />}>
+            <Route path="/" element={<Landing />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/care-homes" element={<CareHomes />} />
+            <Route path="/contact" element={<Contact />} />
+          </Route>
           <Route path="/gallery" element={<Gallery />} />
         </Routes>
-      </Layout>
     </BrowserRouter>
   </StrictMode>
 )

@@ -1,5 +1,5 @@
-import bookingPolicy from '../../../public/booking-policy.pdf'
-import privacyPolicy from '../../../public/privacy-policy.pdf'
+import bookingPolicy from '/booking-policy.pdf?url'
+import privacyPolicy from '/privacy-policy.pdf?url'
 
 const Footer = () => {
   return (

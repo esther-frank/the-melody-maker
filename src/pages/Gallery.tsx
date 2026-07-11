@@ -1,4 +1,6 @@
 import { useRef, useState } from 'react'
+import NavBar from '../components/layout/NavBar'
+import Footer from '../components/layout/Footer'
 
 const chapters = [
   { title: 'Waterloo Sunset', timestamp: '0' },
@@ -48,27 +50,28 @@ const Gallery = () => {
   }
 
   return (
-    <div className="w-full grid grid-cols-3 md:grid-cols-4 gap-2 items-start">
-      <video
-        controls
-        className="w-full col-span-3"
-        playsInline={true}
-        ref={videoRef}
-        onPlay={runGetCurrentChapterIndex}
-        onPause={() => {
-          clearInterval(intervalRef.current)
-        }}
-        onEnded={() => {
-          clearInterval(intervalRef.current)
-        }}
-      >
-        <source
-          src="https://d2nsknjzetj3dy.cloudfront.net/tmm-xs.mp4"
-          type="video/mp4"
-        />
-      </video>
-      <div className="flex flex-col w-full col-span-3 md:col-span-1">
-        <div className="flex flex-col gap-2">
+    <div className="h-dvh max-h-dvh flex flex-col justify-start items-center">
+      <NavBar />
+      <div className="grow w-9/10 pt-4 md:pt-8 pb-2 grid grid-cols-3 md:grid-cols-4 gap-2 items-start">
+        <video
+          controls
+          className="w-full col-span-3"
+          playsInline={true}
+          ref={videoRef}
+          onPlay={runGetCurrentChapterIndex}
+          onPause={() => {
+            clearInterval(intervalRef.current)
+          }}
+          onEnded={() => {
+            clearInterval(intervalRef.current)
+          }}
+        >
+          <source
+            src="https://d2nsknjzetj3dy.cloudfront.net/tmm-xs.mp4"
+            type="video/mp4"
+          />
+        </video>
+        <div className="flex flex-col w-full col-span-3 md:col-span-1 gap-2 overflow-y-scroll">
           {chapters.map((chapter, index) => (
             <button
               className={`border p-2 cursor-pointer rounded-lg ${index === activeChapterIndex ? 'bg-primary text-secondary' : 'bg-secondary text-primary'}`}
@@ -80,6 +83,7 @@ const Gallery = () => {
           ))}
         </div>
       </div>
+      <Footer />
     </div>
   )
 }
