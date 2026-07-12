@@ -50,12 +50,14 @@ const Gallery = () => {
   }
 
   return (
-    <div className="h-dvh max-h-dvh flex flex-col justify-start items-center">
-      <NavBar />
-      <div className="grow w-9/10 pt-4 md:pt-8 pb-2 grid grid-cols-3 md:grid-cols-4 gap-2 items-start">
+    <div className="h-dvh flex flex-col justify-start items-center overflow-hidden">
+      <div className="w-full shrink-0">
+        <NavBar />
+      </div>
+      <div className="w-9/10 flex-1 min-h-0 pt-4 md:pt-8 pb-2 grid grid-cols-1 md:grid-cols-4 grid-rows-[auto,minmax(0,1fr)] md:grid-rows-1 gap-2 items-start overflow-hidden">
         <video
           controls
-          className="w-full col-span-3"
+          className="w-full max-h-full col-span-1 md:col-span-3"
           playsInline={true}
           ref={videoRef}
           onPlay={runGetCurrentChapterIndex}
@@ -71,7 +73,7 @@ const Gallery = () => {
             type="video/mp4"
           />
         </video>
-        <div className="flex flex-col w-full col-span-3 md:col-span-1 gap-2 overflow-y-scroll">
+        <div className="flex flex-col w-full col-span-1 md:col-span-1 gap-2 min-h-0 h-full overflow-y-auto">
           {chapters.map((chapter, index) => (
             <button
               className={`border p-2 cursor-pointer rounded-lg ${index === activeChapterIndex ? 'bg-primary text-secondary' : 'bg-secondary text-primary'}`}
@@ -83,7 +85,9 @@ const Gallery = () => {
           ))}
         </div>
       </div>
-      <Footer />
+      <div className="w-full shrink-0">
+        <Footer />
+      </div>
     </div>
   )
 }
