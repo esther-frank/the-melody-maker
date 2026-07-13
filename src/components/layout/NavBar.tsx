@@ -13,7 +13,7 @@ const NavBar = () => {
     <>
       <div className="sticky top-0 w-full flex flex-row justify-between items-center p-4 bg-primary text-secondary">
         <Link to="/">
-          <img src={logo} className="w-20 h-auto" />
+          <img src={logo} className="w-20 h-auto" alt='the melody maker logo' />
         </Link>
         <div className="flex-row gap-4 hidden md:flex">
           <CustomNavLink to="/about" text="About" />

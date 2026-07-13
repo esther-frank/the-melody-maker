@@ -6,7 +6,7 @@ const About = () => {
     <>
       <h1 className="mb-4">The Melody Maker</h1>
       <div className="flex flex-col items-start gap-8 md:flex-row-reverse md:justify-between">
-        <img src={headshot} className="w-72 rounded-lg" />
+        <img src={headshot} className="w-72 rounded-lg" alt="" />
         <div className="flex flex-col gap-4">
           <p>
             I am a professional guitarist with over 35 years experience. During
@@ -29,7 +29,10 @@ const About = () => {
             as the Sound of Music, hymns and Christmas favourites. With over 150
             songs at my fingertips there’s always something for everyone to
             enjoy. Just get in touch via the{' '}
-            <NavLink to="/contact" className='underline'>contact form</NavLink>.
+            <NavLink to="/contact" className="underline">
+              contact form
+            </NavLink>
+            .
           </p>
         </div>
       </div>
