@@ -103,7 +103,7 @@ const ContactForm = ({ onSubmitSuccess }: { onSubmitSuccess: () => void }) => {
         <h1 id="contact-title">Get in touch</h1>
         <p className="pt-2">
           To make a booking or if you’d like more information please fill in the
-          form below or give me a call on 07941 809506
+          form below or give me a call on <a href='tel:07941809506'>07941 809506</a>
         </p>
       </div>
       <div className={inputGroupStyles}>
