@@ -5,6 +5,7 @@ type CustomNavLinkProps = {
   onClose?: () => void
   isLight?: boolean
   hasBackground?: boolean
+  isHomepageButton?: boolean
 }
 
 const CustomNavLink = ({
@@ -12,8 +13,10 @@ const CustomNavLink = ({
   text,
   onClose,
   isLight,
-  hasBackground
+  hasBackground,
+  isHomepageButton = false
 }: CustomNavLinkProps) => {
+  const additionalStyles = isHomepageButton ? 'text-center' : ''
   const activeStyles = isLight
     ? 'text-secondary bg-primary px-8 py-4 rounded-lg'
     : 'text-primary bg-secondary px-8 py-4 rounded-lg'
@@ -23,8 +26,8 @@ const CustomNavLink = ({
 
   return (
     <NavLink
-      className={({ isActive }) =>
-        isActive ? `${activeStyles}` : `${inactiveStyles}`
+      className={(({ isActive }) =>
+        isActive ? `${activeStyles} ${additionalStyles}` : `${inactiveStyles} ${additionalStyles}`)
       }
       to={to}
       onClick={onClose}

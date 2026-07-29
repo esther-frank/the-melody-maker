@@ -29,11 +29,17 @@ const CareHomes = () => {
           decades but, if you prefer something more specific, I also offer more
           finely tailored packages such as:
         </p>
-        <ul>
-          {packages.map((item) => (
-            <li className="list-disc list-inside">{item}</li>
-          ))}
-        </ul>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+          <ul>
+            {packages.map((item) => (
+              <li className="list-disc list-inside">{item}</li>
+            ))}
+          </ul>
+          <div className="border-2 border-primary rounded-lg m-auto md:m-0 md:mt-4 md:ml-2 py-4 px-12 text-nowrap flex flex-col gap-4 justify-around w-fit h-fit font-semibold text-lg">
+            <p>£75 per hour session</p>
+            <p>*£60 first session*</p>
+          </div>
+        </div>
         <p>
           To book, get in touch{' '}
           <NavLink className="text-primary underline" to="/contact">

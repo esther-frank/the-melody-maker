@@ -10,8 +10,8 @@ const Landing = () => {
         <h2>Melodies for your Memories</h2>
       </div>
       <div className="flex flex-row gap-4 justify-center items-center">
-        <CustomNavLink to="/about" text="Find out more" hasBackground />
-        <CustomNavLink to="/contact" text="Book now" hasBackground />
+        <CustomNavLink to="/about" text="Find out more" hasBackground isHomepageButton />
+        <CustomNavLink to="/contact" text="Book now" hasBackground isHomepageButton />
       </div>
     </div>
   )
