@@ -1,1 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Barriecito&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap');
 @import 'tailwindcss';
+
+@theme {
+  --font-heading: 'Barriecito', sans-serif;
+  --font-body: 'Figtree', sans-serif;
+  --color-primary: #05480d;
+  --color-secondary: #f5ebd5;
+  --color-text: #000001;
+}
+
+@layer base {
+  h1 {
+    font-family: var(--font-heading);
+    color: var(--color-primary);
+    font-weight: 700;
+    font-size: 3rem;
+    margin: 0;
+    line-height: 1;
+  }
+  h2 {
+    font-family: var(--font-body);
+    color: var(--color-primary);
+    font-weight: 600;
+    font-size: 2rem;
+    margin: 0;
+  }
+  body {
+    font-family: var(--font-body);
+    color: var(--color-text);
+    margin: 0;
+    padding: 0;
+  }
+}
