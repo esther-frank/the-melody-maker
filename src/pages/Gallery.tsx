@@ -59,6 +59,7 @@ const Gallery = () => {
           controls
           className="w-full max-h-full col-span-1 md:col-span-3"
           playsInline={true}
+          autoPlay={true}
           ref={videoRef}
           onPlay={runGetCurrentChapterIndex}
           onPause={() => {
