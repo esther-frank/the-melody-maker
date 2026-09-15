@@ -8,7 +8,6 @@ import {
   FormSubmit,
   FormCheckbox
 } from '@ariakit/react'
-import { useState, type ChangeEvent } from 'react'
 
 import privacyPolicy from '/privacy-policy.pdf?url'
 
@@ -16,7 +15,6 @@ const ContactForm = ({ onSubmitSuccess }: { onSubmitSuccess: () => void }) => {
   const inputGroupStyles = 'flex flex-col gap-1'
   const inputStyles = 'border-2 rounded-lg p-2 border-primary'
   const landlineStyles = 'hidden'
-  const [email, setEmail] = useState('')
 
   const form = useFormStore<{
     name: string
@@ -45,24 +43,18 @@ const ContactForm = ({ onSubmitSuccess }: { onSubmitSuccess: () => void }) => {
   const endpoint =
     'https://tjx2ypis75o2amdcohrr5umgg40acpap.lambda-url.eu-west-2.on.aws/'
 
-  const confirmEmailOnChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.currentTarget.value
-    if (value && email && email !== value) {
+  // Registered as an ariakit validator (rather than set ad hoc from an
+  // onChange handler) so the error survives ariakit's automatic
+  // revalidation, which runs on every field change/blur and would
+  // otherwise immediately wipe an error set outside of this hook.
+  form.useValidate(() => {
+    const { email, emailConfirm } = form.getState().values
+    if (emailConfirm && email && email !== emailConfirm) {
       form.setError(form.names.emailConfirm, 'Email addresses do not match')
-    } else {
-      form.setError(form.names.emailConfirm, '')
     }
-  }
+  })
 
   const handleSubmit = async (state: any) => {
-    // Prevent submission if email validation failed. Setting the error on
-    // the form store (rather than only local state) ensures ariakit knows
-    // the submission did not succeed, so it won't clear the entered values.
-    if (state.values.email !== state.values.emailConfirm) {
-      form.setError(form.names.emailConfirm, 'Email addresses do not match')
-      return
-    }
-
     try {
       const { emailConfirm, ...data } = state.values
 
@@ -78,7 +70,6 @@ const ContactForm = ({ onSubmitSuccess }: { onSubmitSuccess: () => void }) => {
       }
       onSubmitSuccess()
       form.reset()
-      setEmail('')
     } catch (error) {
       // Re-throw so ariakit's form store records this as a failed submission
       // instead of a successful one, which otherwise triggers an automatic
@@ -150,10 +141,10 @@ const ContactForm = ({ onSubmitSuccess }: { onSubmitSuccess: () => void }) => {
         </FormLabel>
         <FormInput
           name={form.names.email}
+          type="email"
           placeholder="john.smith@example.com"
           className={inputStyles}
           required
-          onChange={(e) => setEmail(e.currentTarget.value)}
         />
         <FormError name={form.names.email} className="error text-red-900" />
       </div>
@@ -163,11 +154,12 @@ const ContactForm = ({ onSubmitSuccess }: { onSubmitSuccess: () => void }) => {
         </FormLabel>
         <FormInput
           name={form.names.emailConfirm}
+          type="email"
           placeholder="john.smith@example.com"
           className={inputStyles}
           required
           onPaste={(e) => e.preventDefault()}
-          onChange={(e) => confirmEmailOnChange(e)}
+          onChange={() => form.setFieldTouched(form.names.emailConfirm, true)}
         />
         <FormError
           name={form.names.emailConfirm}
