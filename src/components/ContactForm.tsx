@@ -16,16 +16,7 @@ const ContactForm = ({ onSubmitSuccess }: { onSubmitSuccess: () => void }) => {
   const inputGroupStyles = 'flex flex-col gap-1'
   const inputStyles = 'border-2 rounded-lg p-2 border-primary'
   const landlineStyles = 'hidden'
-  const [emailConfirmError, setEmailConfirmError] = useState('')
   const [email, setEmail] = useState('')
-
-  const confirmEmailOnChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.currentTarget.value && email && email !== e.currentTarget.value) {
-      setEmailConfirmError('Email addresses do not match')
-    } else {
-      setEmailConfirmError('')
-    }
-  }
 
   const form = useFormStore<{
     name: string
@@ -54,22 +45,25 @@ const ContactForm = ({ onSubmitSuccess }: { onSubmitSuccess: () => void }) => {
   const endpoint =
     'https://tjx2ypis75o2amdcohrr5umgg40acpap.lambda-url.eu-west-2.on.aws/'
 
-  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    if (emailConfirmError) {
-      e.preventDefault()
-      return
+  const confirmEmailOnChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.currentTarget.value
+    if (value && email && email !== value) {
+      form.setError(form.names.emailConfirm, 'Email addresses do not match')
+    } else {
+      form.setError(form.names.emailConfirm, '')
     }
   }
 
   const handleSubmit = async (state: any) => {
-    // Prevent submission if email validation failed
+    // Prevent submission if email validation failed. Setting the error on
+    // the form store (rather than only local state) ensures ariakit knows
+    // the submission did not succeed, so it won't clear the entered values.
     if (state.values.email !== state.values.emailConfirm) {
-      setEmailConfirmError('Email addresses do not match')
+      form.setError(form.names.emailConfirm, 'Email addresses do not match')
       return
     }
 
     try {
-      setEmailConfirmError('')
       const { emailConfirm, ...data } = state.values
 
       const response = await fetch(endpoint, {
@@ -86,7 +80,11 @@ const ContactForm = ({ onSubmitSuccess }: { onSubmitSuccess: () => void }) => {
       form.reset()
       setEmail('')
     } catch (error) {
+      // Re-throw so ariakit's form store records this as a failed submission
+      // instead of a successful one, which otherwise triggers an automatic
+      // reset of all entered values.
       alert('There was an error submitting the form. Please try again.')
+      throw error
     }
   }
 
@@ -97,7 +95,7 @@ const ContactForm = ({ onSubmitSuccess }: { onSubmitSuccess: () => void }) => {
       store={form}
       aria-labelledby="contact-title"
       className="flex flex-col gap-4"
-      onSubmit={handleFormSubmit}
+      resetOnSubmit={false}
     >
       <div>
         <h1 id="contact-title">Get in touch</h1>
@@ -105,28 +103,39 @@ const ContactForm = ({ onSubmitSuccess }: { onSubmitSuccess: () => void }) => {
           To make a booking or if you’d like more information please fill in the
           form below or give me a call on <a href='tel:07941809506'>07941 809506</a>
         </p>
+        <p className="pt-2">
+          Fields marked <span className="text-red-900">*</span> are required.
+        </p>
       </div>
       <div className={inputGroupStyles}>
-        <FormLabel name={form.names.careHome}>Name of care home</FormLabel>
+        <FormLabel name={form.names.careHome}>
+          Name of care home <span className="text-red-900">*</span>
+        </FormLabel>
         <FormInput
           name={form.names.careHome}
           placeholder="Care Home Name"
           className={inputStyles}
+          required
         />
         <FormError name={form.names.careHome} className="error text-red-900" />
       </div>
       <div className={inputGroupStyles}>
-        <FormLabel name={form.names.address}>Care home address</FormLabel>
+        <FormLabel name={form.names.address}>
+          Care home address <span className="text-red-900">*</span>
+        </FormLabel>
         <FormInput
           name={form.names.address}
           placeholder="Care Home Address"
           className={inputStyles}
+          required
           render={<textarea rows={3} />}
         />
         <FormError name={form.names.address} className="error text-red-900" />
       </div>
       <div className={inputGroupStyles}>
-        <FormLabel name={form.names.name}>Contact name</FormLabel>
+        <FormLabel name={form.names.name}>
+          Contact name <span className="text-red-900">*</span>
+        </FormLabel>
         <FormInput
           name={form.names.name}
           placeholder="John Smith"
@@ -136,7 +145,9 @@ const ContactForm = ({ onSubmitSuccess }: { onSubmitSuccess: () => void }) => {
         <FormError name={form.names.name} className="error text-red-900" />
       </div>
       <div className={inputGroupStyles}>
-        <FormLabel name={form.names.email}>Email</FormLabel>
+        <FormLabel name={form.names.email}>
+          Email <span className="text-red-900">*</span>
+        </FormLabel>
         <FormInput
           name={form.names.email}
           placeholder="john.smith@example.com"
@@ -147,7 +158,9 @@ const ContactForm = ({ onSubmitSuccess }: { onSubmitSuccess: () => void }) => {
         <FormError name={form.names.email} className="error text-red-900" />
       </div>
       <div className={inputGroupStyles}>
-        <FormLabel name={form.names.emailConfirm}>Confirm Email</FormLabel>
+        <FormLabel name={form.names.emailConfirm}>
+          Confirm Email <span className="text-red-900">*</span>
+        </FormLabel>
         <FormInput
           name={form.names.emailConfirm}
           placeholder="john.smith@example.com"
@@ -156,9 +169,6 @@ const ContactForm = ({ onSubmitSuccess }: { onSubmitSuccess: () => void }) => {
           onPaste={(e) => e.preventDefault()}
           onChange={(e) => confirmEmailOnChange(e)}
         />
-        {emailConfirmError && (
-          <div className="error text-red-900">{emailConfirmError}</div>
-        )}
         <FormError
           name={form.names.emailConfirm}
           className="error text-red-900"
@@ -174,7 +184,9 @@ const ContactForm = ({ onSubmitSuccess }: { onSubmitSuccess: () => void }) => {
         <FormError name={form.names.phone} className="error text-red-900" />
       </div>
       <div className={inputGroupStyles}>
-        <FormLabel name={form.names.message}>Message</FormLabel>
+        <FormLabel name={form.names.message}>
+          Message <span className="text-red-900">*</span>
+        </FormLabel>
         <FormInput
           name={form.names.message}
           placeholder="Your message"
@@ -191,7 +203,8 @@ const ContactForm = ({ onSubmitSuccess }: { onSubmitSuccess: () => void }) => {
             I have read and agree to the{' '}
             <a href={privacyPolicy} target="_blank" className="underline">
               privacy policy
-            </a>
+            </a>{' '}
+            <span className="text-red-900">*</span>
           </FormLabel>
         </div>
         <FormError
